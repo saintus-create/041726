@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { source } from '@/lib/source';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import { getMDXComponents } from '@/components/mdx';
 
 export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   const params = await props.params;
@@ -20,7 +21,7 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
       </nav>
       <main className="flex-1 max-w-2xl mx-auto py-12 px-8">
         <h1 className="text-2xl font-semibold mb-6">{page.data.title}</h1>
-        <MDX components={{}} />
+        <MDX components={getMDXComponents({})} />
       </main>
     </div>
   );
