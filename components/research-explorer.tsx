@@ -146,20 +146,28 @@ export function ResearchExplorer() {
 
   return (
     <section className="not-prose flex flex-col gap-6">
-      <Cards className="grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
-        <Card title={String(stats.total) + ' records'} description="Stored locally in this repository.">
-          {String(stats.yearMin) + ' to ' + String(stats.yearMax)}
-        </Card>
-        <Card title={String(filteredStats.total) + ' results'} description="Updates as filters change.">
-          {String(filteredStats.countries) + ' countries in the current view'}
-        </Card>
-        <Card title={String(stats.countries) + ' countries'} description="Geographic coverage in the recovered dataset.">
-          {'Citation coverage: ' + String(stats.withCitation) + ' records'}
-        </Card>
-        <Card title="Three source groups" description="The original dataset categories are preserved.">
-          {filterOptions.sources.map((item) => item.label).join(' · ')}
-        </Card>
-      </Cards>
+      <div className="grid grid-cols-1 border-t border-b border-fd-border md:grid-cols-2 xl:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-fd-border w-full mb-8">
+        <div className="flex flex-col p-6 gap-2 bg-transparent">
+          <span className="text-3xl font-medium tracking-tight text-fd-foreground">{stats.total}</span>
+          <h3 className="text-base font-medium text-fd-foreground">Total records</h3>
+          <p className="text-sm text-fd-muted-foreground leading-relaxed mt-auto pt-4">Stored locally in this repository. {stats.yearMin} to {stats.yearMax}.</p>
+        </div>
+        <div className="flex flex-col p-6 gap-2 bg-transparent">
+          <span className="text-3xl font-medium tracking-tight text-fd-foreground">{filteredStats.total}</span>
+          <h3 className="text-base font-medium text-fd-foreground">Search results</h3>
+          <p className="text-sm text-fd-muted-foreground leading-relaxed mt-auto pt-4">Updates dynamically as filters change. {filteredStats.countries} countries in view.</p>
+        </div>
+        <div className="flex flex-col p-6 gap-2 bg-transparent">
+          <span className="text-3xl font-medium tracking-tight text-fd-foreground">{stats.countries}</span>
+          <h3 className="text-base font-medium text-fd-foreground">Countries</h3>
+          <p className="text-sm text-fd-muted-foreground leading-relaxed mt-auto pt-4">Global geographic coverage. Citations available for {stats.withCitation} records.</p>
+        </div>
+        <div className="flex flex-col p-6 gap-2 bg-transparent">
+          <span className="text-3xl font-medium tracking-tight text-fd-foreground">{filterOptions.sources.length}</span>
+          <h3 className="text-base font-medium text-fd-foreground">Source groups</h3>
+          <p className="text-sm text-fd-muted-foreground leading-relaxed mt-auto pt-4 text-balance">Categories preserved: {filterOptions.sources.map((item) => item.label).join(', ')}.</p>
+        </div>
+      </div>
 
       <div className="rounded-xl border border-fd-border bg-fd-card p-4">
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
