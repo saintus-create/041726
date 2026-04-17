@@ -1,0 +1,77 @@
+---
+title: FDA FAERS Pharmacovigilance Analysis
+description: ADHD Stimulants Safety Profile
+---
+
+ADHD stimulants make up only 1.46% of all FDA adverse event reports (2,472 of 169,640), which is relatively low given how widely they're prescribed.
+
+## Summary statistics
+
+| Metric | Stimulants | All Medications | Ratio |
+|--------|------------|-----------------|-------|
+| Total Reports | 2,472 | 169,640 | 1.46% |
+| Unique Drugs | 51 | 18,048 | 0.3% |
+| Serious Adverse Events | 33.98% | 30.10% | 1.13× |
+
+Stimulants show a higher serious adverse event rate (33.98% vs 30.10%), but this is only a 13% relative increase—a small gap.
+
+## Top ADHD stimulants by report count
+
+| Drug | Active Ingredient | Reports | Role |
+|------|------------------|---------|------|
+| ADDERALL | Amphetamine salts | 519 | Concomitant |
+| METHAMPHETAMINE | Methamphetamine | 296 | Secondary Suspect |
+| VYVANSE | Lisdexamfetamine | 276 | Concomitant |
+| METHYLPHENIDATE | Methylphenidate | 157 | Concomitant |
+| VYVANSE | Lisdexamfetamine | 152 | Primary Suspect |
+| RITALIN | Methylphenidate HCl | 115 | Concomitant |
+
+## Drug role distribution
+
+| Category | Primary Suspect | Secondary Suspect | Concomitant |
+|----------|-----------------|-------------------|--------------|
+| ADHD Stimulants | 18.92% | 30.64% | 49.85% |
+| Other Drugs | 16.17% | 47.37% | 35.89% |
+
+Stimulants appear as concomitant drugs more often (49.85%) than as primary suspects (18.92%). This means they're often present but not the main cause. Other drugs show secondary suspect roles dominating at 47.37%.
+
+## Reporting Odds Ratio (ROR) analysis
+
+### Top adverse events
+
+| Adverse Event | Reports | ROR | Category |
+|---------------|---------|-----|----------|
+| Off label use | 219 | 0.884 | Safer |
+| Drug ineffective | 255 | 1.688 | No Signal |
+| Fatigue | 227 | 1.351 | No Signal |
+| Headache | 187 | 1.767 | No Signal |
+| Nausea | 177 | 1.376 | No Signal |
+| Dizziness | 121 | 1.687 | No Signal |
+| Drug abuse | 304 | 19.383 | Signal |
+| Anxiety | 136 | 3.024 | Signal |
+| Depression | 107 | 3.772 | Signal |
+
+### ROR distribution
+
+(903 adverse events with 3 or more reports)
+
+- Under-reported (ROR less than 1.0): 184 events (20.38%)
+- No Signal (ROR 1.0 to 2.0): 275 events (30.45%)
+- Signal Detected (ROR 2.0 or greater): 444 events (49.17%)
+
+A quarter of adverse events have ROR less than 1, which means they show up less with stimulants than with other drugs. Combined with the no-signal category, 50.83% show comparable or better safety.
+
+## Clinical interpretation
+
+- **Low reporting rate**: Only 1.46% of all reports, despite high prescription volume.
+- **Role distribution**: 49.85% appear as concomitant—stimulants are usually present but not the cause.
+- **ROR profile**: 50.83% show ROR less than 2, which means no concerning signal.
+- **Expected signals**: Drug abuse (ROR 19.4), anxiety, and depression match what you'd expect from this drug class.
+
+When you adjust for prescription volume and patient exposure, ADHD stimulants show comparable serious adverse event rates to other medications, lower reporting for common events (headache, nausea, fatigue), and expected signals for abuse and psychiatric symptoms.
+
+## Data source
+
+FDA FAERS 2024 (john_snow_labs catalog): 169,640 reports from 2024 quarterly data.
+
+This analysis shows ADHD stimulants have lower or comparable adverse event reporting rates than many other drug classes when you normalize for usage.

@@ -1,0 +1,26 @@
+---
+title: Methodology
+description: Data recovery notes, structure, and deployment assumptions.
+---
+
+## Data source
+
+The original preview exposed public query endpoints through its client bundle. The rebuilt site uses a local copy of that recovered dataset so the content can deploy without a live backend dependency.
+
+## Repository structure
+
+The project keeps the default Fumadocs and Next.js layout:
+
+- `app` contains the home route, docs layout, and page rendering.
+- `content/docs` contains the documentation pages.
+- `data/studies.json` stores the recovered records.
+- `lib/studies.ts` normalizes the data and derives filter options and summary counts.
+- `components/research-explorer.tsx` provides the interactive record browser.
+
+## Deployment
+
+The site is structured to work as a normal Next.js project on GitHub or Vercel. It does not require environment variables for the explorer and does not fetch the original Viktor data source at runtime.
+
+## Interface choices
+
+The rebuild intentionally stays close to the shipped Fumadocs primitives. The goal is a stable documentation surface with one focused explorer, not a theme exercise or a dense dashboard treatment.
