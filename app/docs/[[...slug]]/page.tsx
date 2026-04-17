@@ -12,16 +12,31 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   const MDX = page.data.body;
 
   return (
-    <div className="flex min-h-screen">
-      <nav className="w-56 border-r p-4 bg-gray-50">
-        <Link href="/" className="block py-1 text-sm font-medium text-gray-900 mb-4">← Back</Link>
-        <Link href="/docs" className="block py-1.5 px-3 text-sm text-gray-600 rounded hover:bg-gray-100">Overview</Link>
-        <Link href="/docs/explorer" className="block py-1.5 px-3 text-sm text-gray-600 rounded hover:bg-gray-100">Explorer</Link>
-        <Link href="/docs/methodology" className="block py-1.5 px-3 text-sm text-gray-600 rounded hover:bg-gray-100">Methodology</Link>
-      </nav>
-      <main className="flex-1 max-w-2xl mx-auto py-12 px-8">
-        <h1 className="text-2xl font-semibold mb-6">{page.data.title}</h1>
-        <MDX components={getMDXComponents({})} />
+    <div className="flex min-h-screen bg-white">
+      <aside className="w-60 border-r border-gray-100 bg-gray-50/50 p-6">
+        <Link href="/" className="block text-sm font-medium text-gray-900 mb-6 hover:text-gray-600">
+          ← Home
+        </Link>
+        <nav className="space-y-1">
+          <Link href="/docs" className="block py-2 px-3 text-sm text-gray-600 rounded hover:bg-gray-100 hover:text-gray-900">
+            Overview
+          </Link>
+          <Link href="/docs/explorer" className="block py-2 px-3 text-sm text-gray-600 rounded hover:bg-gray-100 hover:text-gray-900">
+            Explorer
+          </Link>
+          <Link href="/docs/methodology" className="block py-2 px-3 text-sm text-gray-600 rounded hover:bg-gray-100 hover:text-gray-900">
+            Methodology
+          </Link>
+        </nav>
+      </aside>
+      
+      <main className="flex-1 max-w-3xl mx-auto py-12 px-10">
+        <article className="prose prose-gray max-w-none">
+          <h1 className="text-3xl font-semibold text-gray-900 mb-8 pb-4 border-b border-gray-100">
+            {page.data.title}
+          </h1>
+          <MDX components={getMDXComponents({})} />
+        </article>
       </main>
     </div>
   );

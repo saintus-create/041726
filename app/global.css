@@ -1,6 +1,24 @@
 @import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+:root {
+  --fd-font-size-base: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: white;
+  color: #111827;
+}
+
+a {
+  text-decoration: none;
 }
