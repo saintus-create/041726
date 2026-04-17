@@ -6,31 +6,83 @@ const stats = getStudyStats();
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-white">
-      <div className="max-w-lg mx-auto py-24 px-6">
-        <header className="text-center mb-12">
-          <h1 className="text-4xl font-semibold text-gray-900 mb-3">{appName}</h1>
-          <p className="text-lg text-gray-500">FDA FAERS Pharmacovigilance Analysis</p>
+    <main className="min-h-screen" style={{ background: 'var(--color-bg)' }}>
+      <div style={{
+        maxWidth: 480,
+        margin: '0 auto',
+        padding: 'var(--space-10) var(--space-6)'
+      }}>
+        <header style={{ textAlign: 'center', marginBottom: 'var(--space-10)' }}>
+          <h1 style={{
+            fontSize: 'var(--text-3xl)',
+            fontWeight: 600,
+            marginBottom: 'var(--space-2)',
+            color: 'var(--color-fg)',
+            letterSpacing: '-0.025em'
+          }}>
+            {appName}
+          </h1>
+          <p style={{
+            fontSize: 'var(--text-lg)',
+            color: 'var(--color-fg-muted)'
+          }}>
+            FDA FAERS Pharmacovigilance Analysis
+          </p>
         </header>
         
-        <nav className="space-y-3">
-          <Link href="/docs" className="block p-5 border border-gray-200 rounded-lg no-underline text-gray-900 hover:border-gray-300 hover:bg-gray-50 transition-colors">
-            <div className="font-medium text-base">Overview</div>
-            <div className="text-sm text-gray-400 mt-1">{stats.total} records · {stats.yearMin}–{stats.yearMax}</div>
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <Link href="/docs" style={{
+            display: 'block',
+            padding: 'var(--space-4)',
+            border: '1px solid var(--color-border)',
+            borderRadius: 6,
+            textDecoration: 'none',
+            color: 'var(--color-fg)',
+            transition: 'border-color 0.15s, background 0.15s'
+          }}>
+            <div style={{ fontWeight: 500, fontSize: 'var(--text-base)' }}>Overview</div>
+            <div style={{ fontSize: 'var(--text-sm)', color: 'var(--color-fg-subtle)', marginTop: 4 }}>
+              {stats.total} records · {stats.yearMin}–{stats.yearMax}
+            </div>
           </Link>
           
-          <Link href="/docs/explorer" className="block p-5 border border-gray-200 rounded-lg no-underline text-gray-900 hover:border-gray-300 hover:bg-gray-50 transition-colors">
-            <div className="font-medium text-base">Explorer</div>
-            <div className="text-sm text-gray-400 mt-1">Browse records</div>
+          <Link href="/docs/explorer" style={{
+            display: 'block',
+            padding: 'var(--space-4)',
+            border: '1px solid var(--color-border)',
+            borderRadius: 6,
+            textDecoration: 'none',
+            color: 'var(--color-fg)',
+            transition: 'border-color 0.15s, background 0.15s'
+          }}>
+            <div style={{ fontWeight: 500, fontSize: 'var(--text-base)' }}>Explorer</div>
+            <div style={{ fontSize: 'var(--text-sm)', color: 'var(--color-fg-subtle)', marginTop: 4 }}>
+              Browse records
+            </div>
           </Link>
           
-          <Link href="/docs/methodology" className="block p-5 border border-gray-200 rounded-lg no-underline text-gray-900 hover:border-gray-300 hover:bg-gray-50 transition-colors">
-            <div className="font-medium text-base">Methodology</div>
-            <div className="text-sm text-gray-400 mt-1">How this site was built</div>
+          <Link href="/docs/methodology" style={{
+            display: 'block',
+            padding: 'var(--space-4)',
+            border: '1px solid var(--color-border)',
+            borderRadius: 6,
+            textDecoration: 'none',
+            color: 'var(--color-fg)',
+            transition: 'border-color 0.15s, background 0.15s'
+          }}>
+            <div style={{ fontWeight: 500, fontSize: 'var(--text-base)' }}>Methodology</div>
+            <div style={{ fontSize: 'var(--text-sm)', color: 'var(--color-fg-subtle)', marginTop: 4 }}>
+              How this site was built
+            </div>
           </Link>
         </nav>
         
-        <footer className="mt-16 text-center text-sm text-gray-400">
+        <footer style={{
+          marginTop: 'var(--space-10)',
+          textAlign: 'center',
+          fontSize: 'var(--text-sm)',
+          color: 'var(--color-fg-subtle)'
+        }}>
           Data source: FDA FAERS 2024
         </footer>
       </div>
