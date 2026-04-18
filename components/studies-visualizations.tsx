@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { studies, getStudyStats, topCountsBy } from '@/lib/studies';
 
 export function StudiesVisualizations() {
@@ -25,97 +25,106 @@ export function StudiesVisualizations() {
   }, []);
 
   return (
-    <div className="space-y-8">
-      {/* Summary Stats */}
-      <div className="grid grid-cols-4 gap-4">
-        <div className="p-4 border rounded-lg text-center">
-          <div className="text-3xl font-semibold">{stats.total}</div>
-          <div className="text-sm text-gray-500">Total Studies</div>
-        </div>
-        <div className="p-4 border rounded-lg text-center">
-          <div className="text-3xl font-semibold">{stats.countries}</div>
-          <div className="text-sm text-gray-500">Countries</div>
-        </div>
-        <div className="p-4 border rounded-lg text-center">
-          <div className="text-3xl font-semibold">{stats.yearMin}–{stats.yearMax}</div>
-          <div className="text-sm text-gray-500">Year Range</div>
-        </div>
-        <div className="p-4 border rounded-lg text-center">
-          <div className="text-3xl font-semibold">{stats.withCitation}</div>
-          <div className="text-sm text-gray-500">With DOI</div>
-        </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+        {[
+          { value: stats.total, label: 'Total Studies' },
+          { value: stats.countries, label: 'Countries' },
+          { value: `${stats.yearMin}–${stats.yearMax}`, label: 'Year Range' },
+          { value: stats.withCitation, label: 'With DOI' },
+        ].map(({ value, label }) => (
+          <div key={label} style={{
+            padding: 20,
+            border: '1px solid var(--color-border)',
+            textAlign: 'center',
+          }}>
+            <div style={{ fontSize: 28, fontWeight: 600, color: 'var(--color-fg)', letterSpacing: '-0.02em' }}>
+              {value}
+            </div>
+            <div style={{ fontSize: 'var(--text-sm)', color: 'var(--color-fg-muted)', marginTop: 4 }}>
+              {label}
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* Country Distribution */}
       <div>
-        <h3 className="text-lg font-semibold mb-3">Studies by Country</h3>
-        <div className="h-64 flex items-end gap-1">
+        <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: 600, marginBottom: 12, color: 'var(--color-fg)' }}>
+          Studies by Country
+        </h3>
+        <div style={{ height: 200, display: 'flex', alignItems: 'flex-end', gap: 2 }}>
           {countryData.map(({ label, count }) => {
             const max = Math.max(...countryData.map((d) => d.count));
             const height = (count / max) * 100;
             return (
               <div
                 key={label}
-                className="flex-1 bg-blue-500 rounded-t hover:bg-blue-600 transition-colors cursor-pointer group relative"
-                style={{ height: `${height}%`, minWidth: 8 }}
-              >
-                <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 text-xs bg-gray-800 text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-10">
-                  {label}: {count}
-                </span>
-              </div>
+                title={`${label}: ${count}`}
+                style={{
+                  flex: 1,
+                  background: 'var(--color-fg)',
+                  height: `${height}%`,
+                  minWidth: 6,
+                  cursor: 'default',
+                }}
+              />
             );
           })}
         </div>
-        <div className="mt-2 flex flex-wrap gap-1 text-xs text-gray-500">
+        <div style={{ marginTop: 8, display: 'flex', flexWrap: 'wrap', gap: 6, fontSize: 'var(--text-xs)', color: 'var(--color-fg-muted)' }}>
           {countryData.slice(0, 10).map(({ label }) => (
             <span key={label}>{label}</span>
           ))}
         </div>
       </div>
 
-      {/* Timeline */}
       <div>
-        <h3 className="text-lg font-semibold mb-3">Research Over Time</h3>
-        <div className="h-48 flex items-end gap-2">
+        <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: 600, marginBottom: 12, color: 'var(--color-fg)' }}>
+          Research Over Time
+        </h3>
+        <div style={{ height: 160, display: 'flex', alignItems: 'flex-end', gap: 4 }}>
           {yearData.map(([year, count]) => {
             const max = Math.max(...yearData.map(([, c]) => c));
             const height = (count / max) * 100;
             return (
               <div
                 key={year}
-                className="flex-1 bg-emerald-500 rounded-t hover:bg-emerald-600 transition-colors cursor-pointer group relative"
-                style={{ height: `${height}%` }}
-              >
-                <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 text-xs bg-gray-800 text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-10">
-                  {year}: {count} studies
-                </span>
-              </div>
+                title={`${year}: ${count} studies`}
+                style={{
+                  flex: 1,
+                  background: 'var(--color-fg)',
+                  height: `${height}%`,
+                  cursor: 'default',
+                }}
+              />
             );
           })}
         </div>
-        <div className="mt-2 flex justify-between text-xs text-gray-500">
+        <div style={{ marginTop: 8, display: 'flex', justifyContent: 'space-between', fontSize: 'var(--text-xs)', color: 'var(--color-fg-muted)' }}>
           <span>{yearData[0]?.[0]}</span>
           <span>{yearData[yearData.length - 1]?.[0]}</span>
         </div>
       </div>
 
-      {/* Category Distribution */}
       <div>
-        <h3 className="text-lg font-semibold mb-3">Evidence by Category</h3>
-        <div className="space-y-2">
+        <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: 600, marginBottom: 12, color: 'var(--color-fg)' }}>
+          Evidence by Category
+        </h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           {categoryData.slice(0, 12).map(({ label, count }) => {
             const max = categoryData[0]?.count || 1;
             const width = (count / max) * 100;
             return (
-              <div key={label} className="flex items-center gap-3">
-                <span className="w-32 text-sm text-gray-600 truncate">{label}</span>
-                <div className="flex-1 h-6 bg-gray-100 rounded overflow-hidden">
-                  <div
-                    className="h-full bg-orange-500 rounded"
-                    style={{ width: `${width}%` }}
-                  />
+              <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <span style={{ width: 120, fontSize: 'var(--text-sm)', color: 'var(--color-fg-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {label}
+                </span>
+                <div style={{ flex: 1, height: 20, background: 'var(--color-selection)', overflow: 'hidden' }}>
+                  <div style={{ height: '100%', background: 'var(--color-fg)', width: `${width}%` }} />
                 </div>
-                <span className="text-sm text-gray-500 w-8 text-right">{count}</span>
+                <span style={{ fontSize: 'var(--text-sm)', color: 'var(--color-fg-muted)', width: 28, textAlign: 'right' }}>
+                  {count}
+                </span>
               </div>
             );
           })}
