@@ -43,7 +43,7 @@ function Button({
   return (
     <ButtonPrimitive
       data-slot="button"
-      className={buttonVariants({ variant, size, class: className })}
+className={buttonVariants({ variant, size, class: className })}
       {...props}
     />
   )
