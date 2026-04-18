@@ -366,6 +366,268 @@ import styles from './Button.module.css';
 
 > See component docs for complete class references. All component classes documented in `@heroui/styles/components`.
 
+### Component Sizing & Proportions
+
+#### Size Variants (from tailwind-variants pattern)
+Standard size scale extracted from HeroUI wrapper component examples:
+
+| Variant | Text | Padding (x/y) | Use Case |
+|---|---|---|---|
+| **small** | `text-sm` (14px) | `px-2 py-1` (8/4px) | Dense UIs, compact tables |
+| **medium** (default) | `text-base` (16px) | `px-4 py-2` (16/8px) | Standard buttons, inputs |
+| **large** | `text-lg` (18px) | `px-6 py-3` (24/12px) | Primary CTAs, touch-friendly |
+
+Implementation with `tailwind-variants`:
+```tsx
+const customButtonVariants = tv({
+  extend: buttonVariants,
+  variants: {
+    size: {
+      small: 'text-sm px-2 py-1',
+      medium: 'text-base px-4 py-2',
+      large: 'text-lg px-6 py-3',
+    },
+  },
+  defaultVariants: { size: 'medium' },
+});
+```
+
+#### Icon-Only Variants
+**BEM class**: `.button--icon-only`
+
+**Specifications**:
+- Circular shape (not square) — `rounded-full` or `aspect-square`
+- Fixed dimensions: `w-10 h-10` minimum (40×40px)
+- Must include `aria-label` for screen reader accessibility
+- Accepts `size="icon"` prop where component supports it
+
+```tsx
+// Implementation
+<Button size="icon" aria-label="Close">
+  <CloseIcon />
+</Button>
+
+// CSS override
+.button--icon-only {
+  @apply w-10 h-10 rounded-full aspect-square;
+}
+```
+
+**With icon + text**: Use `gap-2` spacing between icon and label:
+```tsx
+<Button className="gap-2">
+  <Icon /> <span>Label</span>
+</Button>
+```
+
+#### Width Specifications
+
+**Fixed Width Patterns**:
+- `w-32` (128px) — Short labels, icon buttons
+- `w-48` (192px) — Standard form inputs
+- `w-64` (256px) — Search inputs, dropdowns
+- `w-96` (384px) — Wide inputs, textareas
+- `w-full` — Full-width containers (mobile-first)
+
+**Min/Max Constraints** (flexible but bounded):
+```tsx
+<input className="min-w-[100px] max-w-full" />
+```
+
+**Auto Width** (intrinsic components):
+- Tags, badges, pills: `w-auto` (default)
+- **Do NOT** force into grid columns unless layout requires
+- Let content dictate width naturally
+
+**Responsive Width Progression**:
+```tsx
+className="w-full md:w-64 lg:w-96"
+// Mobile: full, Tablet: 256px, Desktop: 384px
+```
+
+#### Height Standards
+
+| Height | px | Tailwind | Touch Target | Use |
+|---|---|---|---|---|
+| **small** | 32px | `h-8` | ❌ Below min | Dense tables, compact UI |
+| **medium** | 40px | `h-10` | ❌ Below min | Standard buttons (border-box) |
+| **large** | 48px | `h-12` | ✅ Meets Android | Primary CTAs, touch targets |
+| **extra-large** | 56px | `h-14` | ✅ Exceeds min | Hero sections, accessibility mode |
+
+**Note**: Button `height` includes border when using `box-sizing: border-box`. Use `min-h` for flexible height with variable content.
+
+#### Padding & Spacing Scale (Base 4px Grid)
+
+All spacing derived from 4px increment scale (modular scale ratio 1.125):
+
+| Scale | px | Tailwind | Typical Usage |
+|---|---|---|---|
+| 1 | 4px | `p-1` | Icon padding, tight gaps |
+| 2 | 8px | `p-2` | Button inner, dense spacing |
+| 3 | 12px | `p-3` | Moderate gaps, small cards |
+| 4 | 16px | `p-4` | Standard inputs, section margins |
+| 5 | 20px | `p-5` | Card padding, medium gaps |
+| 6 | 24px | `p-6` | Large button padding, sections |
+| 8 | 32px | `p-8` | Section containers, wide margins |
+| 10 | 40px | `p-10` | Layout gutters, page margins |
+| 12 | 48px | `p-12` | Page sections, hero spacing |
+
+**Horizontal padding pattern**:
+- Buttons: `px-4` (medium), `px-6` (large), `px-2` (small)
+- Inputs: `px-3 py-2` (default), `px-4 py-3` (large)
+
+#### Responsive Sizing Pattern
+
+Use Tailwind responsive prefixes (`sm:`, `md:`, `lg:`, `xl:`) for adaptive sizing:
+
+```tsx
+<Button className="text-sm md:text-base lg:text-lg px-3 md:px-4 lg:px-6">
+  Responsive Button
+</Button>
+```
+
+**Breakpoint mapping**:
+- Mobile-first (base): smallest size
+- `md` (768px): medium sizing
+- `lg` (1024px): large sizing
+- `xl` (1280px): extra-large if needed
+
+**Equivalent CSS queries**:
+```css
+.button {
+  font-size: 0.875rem; /* text-sm */
+  padding: 0.5rem 1rem; /* px-3 py-2 (12/8px actually) */
+}
+@media (min-width: 768px) {
+  .button {
+    font-size: 1rem; /* text-base */
+    padding: 0.75rem 1.5rem; /* px-4 py-3 (16/12px) */
+  }
+}
+```
+
+#### State-Based Dynamic Sizing (Render Props)
+
+Apply different sizes based on component state:
+
+```tsx
+// Dynamic className based on state
+<Button
+  className={({ isPressed }) =>
+    isPressed ? 'text-sm px-2 py-1' : 'text-base px-4 py-2'
+  }
+>
+  Press me
+</Button>
+
+// Dynamic content within component
+<Button>
+  {({ isHovered, isPressed }) => (
+    <>
+      <Icon
+        className={isPressed ? 'w-4 h-4' : 'w-5 h-5'}
+      />
+      <span className={isHovered ? 'text-lg' : 'text-base'}>
+        Like
+      </span>
+    </>
+  )}
+</Button>
+```
+
+**State properties available**: `isPressed`, `isHovered`, `isFocused`, `isDisabled`, `isSelected`, `isLoading`
+
+#### BEM Size Modifiers
+
+Consistent naming for size variants using BEM modifier syntax:
+
+```css
+/* Buttons */
+.button--xs { @apply text-xs px-1.5 py-0.5; }  /* 12px text */
+.button--sm { @apply text-sm px-2 py-1; }      /* 14px text */
+.button--md { @apply text-base px-4 py-2; }    /* 16px text (default) */
+.button--lg { @apply text-lg px-6 py-3; }      /* 18px text */
+.button--xl { @apply text-xl px-8 py-4; }      /* 20px text */
+
+/* Accordion */
+.accordion--compact { @apply text-sm; }
+.accordion--spacious { @apply text-lg py-4; }
+
+/* Input */
+.input--sm { @apply text-sm h-8; }
+.input--lg { @apply text-lg h-12; }
+```
+
+**Global overrides** in `global.css`:
+```css
+@layer components {
+  .button--lg {
+    @apply text-lg px-6 py-3 font-semibold;
+  }
+}
+```
+
+#### Width & Height Shorthand Patterns
+
+**Square components** (avatars, icons, badges):
+- `w-8 h-8` (32px) — Small avatar, icon
+- `w-10 h-10` (40px) — Medium avatar, default icon button
+- `w-12 h-12` (48px) — Large avatar, touch target
+- `w-16 h-16` (64px) — Extra-large avatar, profile
+
+**Rectangular components** (cards, inputs):
+- **Width dominant**: `w-full max-w-md` (responsive with max constraint)
+- **Height dominant**: `h-64 overflow-y-auto` (fixed height, scrollable)
+- **Aspect ratios**: `aspect-video` (16:9), `aspect-square` (1:1), `aspect-[4/3]` custom
+
+**Full-bleed containers**: `w-[calc(100vw+2rem)] mx-[-1rem]` (account for margins)
+
+#### Touch Target Sizing
+
+**Minimum touch target sizes** (accessibility requirement):
+- **iOS HIG**: 44×44pt (≈44×44px @1x, 88×88px @2x)
+- **Material Design**: 48×48dp (≈48×48px)
+- **WCAG 2.5.5.1 (AAA)**: 44×44CSS pixels recommended
+
+**Implementation**:
+```tsx
+<Button className="min-w-[44px] min-h-[44px]">
+  {/* Touch target expanded via padding, not element size */}
+</Button>
+```
+
+**Icon-only buttons**: Ensure `w-10 h-10` (40px) minimum, prefer `w-12 h-12` (48px) for comfortable tap.
+
+#### Border Radius & Proportions
+
+**Corner radius scale** (Tailwind default):
+| Radius | px | Usage |
+|---|---|---|
+| `rounded-none` | 0 | Sharp edges, rarely |
+| `rounded-sm` | 2px | Subtle rounding |
+| `rounded` (default) | 4px | Minor rounding |
+| `rounded-md` | 6px | Standard for buttons/cards |
+| `rounded-lg` | 8px | Large buttons, modals |
+| `rounded-xl` | 12px | Cards, dialogs |
+| `rounded-2xl` | 16px | Hero sections |
+| `rounded-full` | 9999px | Circular (avatars, pills) |
+
+**Consistency rule**: All size variants of a component use same radius:
+- Small/Medium buttons: `rounded-md`
+- Large buttons: `rounded-lg`
+- Icon-only: `rounded-full`
+
+#### Sizing Consistency Checklist
+
+✅ Use multiples of 4 for all spacing (Base 4px grid)  
+✅ Stick to standard Tailwind scale (no arbitrary values unless necessary)  
+✅ Touch targets ≥44×44px (iOS) / ≥48×48px (Android)  
+✅ Body text no smaller than `text-sm` (14px)  
+✅ Heading hierarchy: `text-4xl` → `text-3xl` → `text-2xl` → `text-xl` → `text-lg` → `text-base`  
+✅ Maintain aspect ratios for media (use `aspect-ratio` utilities)  
+✅ Use `box-sizing: border-box` globally to include borders/padding in element size  
+✅ Set `touch-action: manipulation` on interactive elements to improve mobile response time  
+
 ### Design Support
 - Figma comments
 - Slack: `#base-design-support`
