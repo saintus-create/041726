@@ -26,38 +26,39 @@
   --space-8: 32px;
   --space-10: 40px;
 
-  /* Refined enterprise palette */
+  /* Refined Uber Base Color Palette (0 Chroma, stark contrast) */
   --color-bg: #ffffff;
-  --color-fg: #1f2937;
-  --color-fg-muted: #6b7280;
-  --color-fg-subtle: #9ca3af;
-  --color-border: #e5e7eb;
-  --color-border-strong: #d1d5db;
-  --color-accent: #4b5563;
-  --color-accent-active: #1f2937;
-  --color-link: #4b5563;
-  --color-link-active: #1f2937;
-  --color-selection: #e5e7eb;
+  --color-fg: #000000;
+  --color-fg-muted: #545454;
+  --color-fg-subtle: #a6a6a6;
+  --color-border: #e2e2e2;
+  --color-border-strong: #cccccc;
+  --color-accent: #000000;
+  --color-accent-active: #000000;
+  --color-link: #000000;
+  --color-link-active: #000000;
+  --color-selection: #e2e2e2;
   
+  /* shadcn/ui map (Absolute 0-Chroma) */
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: oklch(0 0 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0 0 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --radius: 0.5rem;
+  --popover-foreground: oklch(0 0 0);
+  --primary: oklch(0 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.96 0 0);
+  --secondary-foreground: oklch(0 0 0);
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0.4 0 0); /* ~ #545454 */
+  --accent: oklch(0.96 0 0);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.577 0.245 27.325); /* Kept red for critical alerts */
+  --border: oklch(0.88 0 0); /* ~ #e2e2e2 */
+  --input: oklch(0.88 0 0);
+  --ring: oklch(0 0 0);
+  --radius: 0; /* Base brutalism: sharp corners everywhere */
 }
 
 * { box-sizing: border-box; }
