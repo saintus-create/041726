@@ -58,7 +58,7 @@
   --border: oklch(0.88 0 0); /* ~ #e2e2e2 */
   --input: oklch(0.88 0 0);
   --ring: oklch(0 0 0);
-  --radius: 0; /* Base brutalism: sharp corners everywhere */
+  --radius: 0.5rem;
 }
 
 * { box-sizing: border-box; }
@@ -205,13 +205,9 @@ nav[aria-label="Table of contents"] a {
   margin: var(--space-6) 0;
   font-size: var(--text-sm);
   font-variant-numeric: tabular-nums;
-  table-layout: fixed;
+  table-layout: auto;
 }
 
-.prose table colgroup {
-  display: grid;
-  grid-template-columns: 2fr 1.5fr 1.5fr 0.8fr;
-}
 
 .prose thead th {
   text-align: left;
@@ -336,9 +332,31 @@ nav[aria-label="Table of contents"] a {
 }
 
 .dark {
-  --color-bg: #ffffff;
-  --color-fg: #1f2937;
-  --color-border: #e5e7eb;
+  --color-bg: #0a0a0a;
+  --color-fg: #f5f5f5;
+  --color-fg-muted: #a0a0a0;
+  --color-fg-subtle: #666666;
+  --color-border: #2a2a2a;
+  --color-border-strong: #3a3a3a;
+  --color-selection: #1f1f1f;
+
+  --background: oklch(0.07 0 0);
+  --foreground: oklch(0.96 0 0);
+  --card: oklch(0.07 0 0);
+  --card-foreground: oklch(0.96 0 0);
+  --popover: oklch(0.07 0 0);
+  --popover-foreground: oklch(0.96 0 0);
+  --primary: oklch(0.96 0 0);
+  --primary-foreground: oklch(0.07 0 0);
+  --secondary: oklch(0.14 0 0);
+  --secondary-foreground: oklch(0.96 0 0);
+  --muted: oklch(0.14 0 0);
+  --muted-foreground: oklch(0.6 0 0);
+  --accent: oklch(0.14 0 0);
+  --accent-foreground: oklch(0.96 0 0);
+  --border: oklch(0.2 0 0);
+  --input: oklch(0.2 0 0);
+  --ring: oklch(0.96 0 0);
 }
 
 @layer base {
